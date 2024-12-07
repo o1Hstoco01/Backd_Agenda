@@ -11,8 +11,9 @@ public class Agenda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String compromisso;
     private String data;
-    private Double horario;
+    private String horario;
     private String local;
    
     
@@ -22,16 +23,22 @@ public class Agenda {
     public void setId(Long id) {
         this.id = id;
     }
+    public String getCompromisso() {
+        return compromisso;
+    }
+    public void setCompromisso(String compromisso) {
+        this.compromisso = compromisso;
+    }
     public String getData() {
         return data;
     }
     public void setData(String data) {
         this.data = data;
     }
-    public Double getHorario() {
+    public String getHorario() {
         return horario;
     }
-    public void setHorario(Double horario) {
+    public void setHorario(String horario) {
         this.horario = horario;
     }
     public String getLocal() {
@@ -64,7 +71,9 @@ public class Agenda {
             return false;
         return true;
     }
-
+    
+    
+    
     
 
     
