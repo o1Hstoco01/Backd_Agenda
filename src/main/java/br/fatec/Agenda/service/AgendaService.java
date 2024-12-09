@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.fatec.Agenda.dto.AgendaRequest;
 import br.fatec.Agenda.dto.AgendaResponce;
 import br.fatec.Agenda.entities.Agenda;
 import br.fatec.Agenda.mappers.AgendaMapper;
@@ -30,5 +31,18 @@ public class AgendaService {
             () -> new EntityNotFoundException("Agenda não cadastrada")
         );
         return AgendaMapper.toDTO(agenda);
+    }
+
+    public void deleteAgendaById(Long id){
+        if(repository.existsById(id)){
+            repository.deleteById(id);
+        }else{
+            throw new EntityNotFoundException("Agenda não casdastrada no sistema");
+        }
+    }
+
+    public AgendaResponce save(AgendaRequest agenda){
+        Agenda newAgenda = repository.save(AgendaMapper.toEntity(agenda));
+        return AgendaMapper.toDTO(newAgenda);
     }
 }
