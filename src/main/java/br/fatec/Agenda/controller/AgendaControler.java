@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.fatec.Agenda.dto.AgendaRequest;
 import br.fatec.Agenda.dto.AgendaResponce;
+import br.fatec.Agenda.entities.Agenda;
 import br.fatec.Agenda.service.AgendaService;
 
 @RestController
@@ -39,11 +41,16 @@ public class AgendaControler {
         service.deleteAgendaById(id);
         return ResponseEntity.noContent().build();    
     }
-    
 
     @PostMapping
     public ResponseEntity<AgendaResponce> SaveAgenda(@Validated @RequestBody AgendaRequest agenda){
         AgendaResponce newAgenda = service.save(agenda);
         return ResponseEntity.created(null).body(newAgenda);
+    }
+
+    @PutMapping ("{id}")
+    public ResponseEntity<Void> updateAgenda(@PathVariable long id, @RequestBody Agenda agenda){
+        service.update(agenda, id);
+        return ResponseEntity.ok().build();
     }
 }
